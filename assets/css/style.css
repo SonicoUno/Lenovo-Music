@@ -1,0 +1,2892 @@
+/* =========================================================
+   SPOTIFY-STYLE MUSIC PLAYER
+   COMPLETE CLEAN CSS
+   ========================================================= */
+
+:root {
+  --green: #1ed760;
+  --green-hover: #1fdf64;
+
+  --black: #000;
+
+  --bg: #121212;
+  --bg-2: #181818;
+  --bg-3: #242424;
+  --bg-hover: #2a2a2a;
+
+  --white: #fff;
+  --text: #f5f5f5;
+  --muted: #b3b3b3;
+  --subtle: #8d8d8d;
+
+  --border: rgba(255, 255, 255, 0.08);
+
+  --sidebar-width: 240px;
+  --right-panel-width: 320px;
+  --player-height: 90px;
+
+  --transition: 180ms ease;
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 280px;
+  min-height: 100vh;
+
+  color: var(--text);
+  background: var(--black);
+
+  font-size: 1.4rem;
+  line-height: 1.5;
+
+  overflow: hidden;
+}
+
+button,
+input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+
+/* =========================================================
+   MATERIAL SYMBOLS
+   ========================================================= */
+
+.material-symbols-rounded {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 500,
+    "GRAD" 0,
+    "opsz" 24;
+
+  user-select: none;
+}
+
+
+/* =========================================================
+   MODERN SCROLLBARS
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4d4d4d transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #454545;
+  border-radius: 999px;
+
+  border: 2px solid transparent;
+  background-clip: padding-box;
+
+  transition: background 180ms ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b6b6b;
+
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #8a8a8a;
+
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+  width: 100%;
+  height: 100vh;
+
+  display: grid;
+
+  grid-template-columns:
+    var(--sidebar-width)
+    minmax(0, 1fr)
+    var(--right-panel-width);
+
+  grid-template-rows:
+    minmax(0, 1fr)
+    var(--player-height);
+
+  background: var(--black);
+
+  overflow: hidden;
+
+  transition:
+    grid-template-columns 260ms ease;
+}
+
+
+/* =========================================================
+   DESKTOP SIDEBAR COLLAPSED
+   ========================================================= */
+
+.app.sidebar-collapsed {
+  grid-template-columns:
+    0
+    minmax(0, 1fr)
+    var(--right-panel-width);
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: var(--sidebar-width);
+  min-width: 0;
+
+  padding: 24px 12px;
+
+  background: #000;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  border-right:
+    1px solid rgba(255, 255, 255, 0.05);
+
+  z-index: 300;
+
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+
+  transform: none;
+
+  transition:
+    width 260ms ease,
+    padding 260ms ease,
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 260ms ease;
+}
+
+
+/* =========================================================
+   DESKTOP SIDEBAR COLLAPSE
+   ========================================================= */
+
+.app.sidebar-collapsed .sidebar {
+  width: 0;
+  min-width: 0;
+
+  padding-left: 0;
+  padding-right: 0;
+
+  border-right: 0;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.app.sidebar-collapsed .sidebar-logo,
+.app.sidebar-collapsed .main-nav,
+.app.sidebar-collapsed .sidebar-section {
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   SIDEBAR SCROLLBAR
+   ========================================================= */
+
+.sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: #303030 transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #2d2d2d;
+  border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.sidebar-logo {
+  height: 45px;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  color: var(--white);
+
+  font-size: 1.9rem;
+  font-weight: 800;
+
+  margin-bottom: 28px;
+
+  white-space: nowrap;
+}
+
+.sidebar-logo .material-symbols-rounded {
+  color: var(--green);
+  font-size: 30px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.main-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  min-height: 48px;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  color: var(--muted);
+
+  border-radius: 7px;
+
+  font-size: 1.45rem;
+  font-weight: 700;
+
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+
+.nav-item .material-symbols-rounded {
+  font-size: 25px;
+}
+
+.nav-item:hover {
+  color: var(--white);
+  background: var(--bg-hover);
+}
+
+.nav-item.active {
+  color: var(--white);
+  background: #282828;
+}
+
+
+/* =========================================================
+   SIDEBAR SECTION
+   ========================================================= */
+
+.sidebar-section {
+  margin-top: 32px;
+  padding: 0 8px;
+}
+
+.sidebar-title {
+  color: #777;
+
+  font-size: 1.15rem;
+  font-weight: 800;
+
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  margin-bottom: 14px;
+}
+
+.sidebar-link {
+  width: 100%;
+
+  display: block;
+
+  padding: 8px 4px;
+
+  color: var(--muted);
+  background: transparent;
+
+  font-size: 1.35rem;
+
+  text-align: left;
+
+  border-radius: 5px;
+
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+
+.sidebar-link:hover {
+  color: var(--white);
+  background: #181818;
+}
+
+
+/* =========================================================
+   HOME
+   ========================================================= */
+
+.home {
+  grid-column: 2;
+  grid-row: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  padding:
+    30px
+    32px
+    120px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #1b1b1b 0,
+      #121212 260px
+    );
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    rgba(255, 255, 255, 0.28)
+    transparent;
+}
+
+.home::-webkit-scrollbar {
+  width: 8px;
+}
+
+.home::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.home::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
+
+.home::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.42);
+}
+
+
+/* =========================================================
+   HOME HEADER
+   ========================================================= */
+
+.home-header {
+  min-height: 80px;
+
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.home-header h1 {
+  color: var(--white);
+
+  font-size:
+    clamp(
+      2.8rem,
+      3vw,
+      4rem
+    );
+
+  line-height: 1.1;
+
+  font-weight: 800;
+
+  letter-spacing: -1px;
+}
+
+.greeting {
+  color: var(--muted);
+
+  font-size: 1.25rem;
+
+  margin-bottom: 4px;
+}
+
+
+/* =========================================================
+   HAMBURGER
+   ========================================================= */
+
+.mobile-menu {
+  display: grid !important;
+  place-items: center;
+
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+
+  margin-right: 12px;
+
+  padding: 0;
+
+  flex: 0 0 42px;
+
+  color: var(--white);
+
+  background: transparent;
+
+  border-radius: 50%;
+
+  position: relative;
+
+  z-index: 10001;
+
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.mobile-menu:hover {
+  color: var(--white);
+  background: #282828;
+
+  transform: scale(1.05);
+}
+
+.mobile-menu:active {
+  transform: scale(0.94);
+}
+
+.mobile-menu .material-symbols-rounded {
+  font-size: 24px;
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   QUICK PLAYLISTS
+   ========================================================= */
+
+.quick-playlists {
+  margin-bottom: 38px;
+}
+
+.quick-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 12px;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   QUICK CARD
+   ========================================================= */
+
+.quick-card {
+  position: relative;
+
+  width: 100%;
+  height: 64px;
+
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  overflow: hidden;
+
+  color: var(--white);
+  background: #292929;
+
+  border-radius: 6px;
+
+  text-align: left;
+
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.quick-card:hover {
+  background: #363636;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   QUICK CARD ICON
+   ========================================================= */
+
+.quick-card > .material-symbols-rounded {
+  width: 64px;
+  height: 64px;
+
+  min-width: 64px;
+  min-height: 64px;
+
+  flex: 0 0 64px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--white);
+  background: #202020;
+
+  font-size: 28px;
+}
+
+
+/* =========================================================
+   QUICK CARD TITLE
+   ========================================================= */
+
+.quick-card > span:nth-child(2) {
+  min-width: 0;
+
+  flex: 1;
+
+  padding-right: 12px;
+
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 1.25rem;
+  font-weight: 700;
+
+  line-height: 1.35;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   QUICK PLAY
+   ========================================================= */
+
+.quick-play {
+  position: absolute;
+
+  top: 50%;
+  right: 10px;
+
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #000;
+  background: var(--green);
+
+  opacity: 0;
+
+  transform:
+    translateY(-50%)
+    translateY(6px);
+
+  z-index: 5;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.35);
+
+  transition:
+    opacity var(--transition),
+    transform var(--transition),
+    background var(--transition);
+}
+
+.quick-card:hover .quick-play {
+  opacity: 1;
+
+  transform:
+    translateY(-50%)
+    translateY(0);
+}
+
+.quick-play:hover {
+  background: var(--green-hover);
+}
+
+.quick-play .material-symbols-rounded {
+  font-size: 24px;
+}
+
+
+/* =========================================================
+   MUSIC SECTION
+   ========================================================= */
+
+.music-section {
+  margin-bottom: 42px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.section-header h2 {
+  color: var(--white);
+
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.show-all {
+  color: var(--muted);
+
+  font-size: 1.2rem;
+  font-weight: 700;
+
+  transition:
+    color var(--transition);
+}
+
+.show-all:hover {
+  color: var(--white);
+}
+
+
+/* =========================================================
+   MUSIC GRID
+   ========================================================= */
+
+.music-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(170px, 1fr)
+    );
+
+  gap: 20px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   MUSIC CARD
+   ========================================================= */
+
+.music-card {
+  width: 100%;
+  min-width: 0;
+
+  padding: 14px;
+
+  background: #181818;
+
+  border-radius: 7px;
+
+  overflow: hidden;
+
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.music-card:hover {
+  background: #242424;
+}
+
+
+/* =========================================================
+   VINYL
+   ========================================================= */
+
+.music-card-image {
+  position: relative;
+
+  width: 100%;
+  height: auto;
+
+  aspect-ratio: 1 / 1;
+
+  margin-bottom: 14px;
+
+  display: block;
+
+  overflow: hidden;
+
+  background: #111;
+
+  border-radius: 50%;
+
+  line-height: 0;
+
+  isolation: isolate;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.35);
+
+  will-change: transform;
+}
+
+.music-card-image > img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+  max-height: none;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+
+  transition:
+    transform 350ms ease;
+}
+
+.music-card:hover .music-card-image > img {
+  transform: scale(1.04);
+}
+
+
+/* =========================================================
+   VINYL CENTER
+   ========================================================= */
+
+.music-card-image::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 18%;
+  height: 18%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.35);
+
+  border:
+    3px solid
+    rgba(255, 255, 255, 0.12);
+
+  box-shadow:
+    0 0 0 2px
+    rgba(0, 0, 0, 0.2);
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+
+/* =========================================================
+   VINYL ANIMATION
+   ========================================================= */
+
+@keyframes vinyl-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.music-card.is-playing .music-card-image {
+  animation:
+    vinyl-spin
+    4s
+    linear
+    infinite;
+}
+
+
+/* =========================================================
+   CARD PLAY
+   ========================================================= */
+
+.card-play {
+  position: absolute;
+
+  right: 10px;
+  bottom: 10px;
+
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #000;
+  background: var(--green);
+
+  box-shadow:
+    0 6px 15px rgba(0, 0, 0, 0.45);
+
+  opacity: 0;
+
+  transform:
+    translateY(8px);
+
+  z-index: 10;
+
+  transition:
+    opacity var(--transition),
+    transform var(--transition),
+    background var(--transition);
+}
+
+.music-card:hover .card-play,
+.music-card.is-playing .card-play {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-play:hover {
+  background: var(--green-hover);
+  transform: scale(1.05);
+}
+
+.card-play .material-symbols-rounded {
+  font-size: 26px;
+}
+
+
+/* =========================================================
+   PLAY / PAUSE
+   ========================================================= */
+
+.active-icon {
+  display: none;
+}
+
+[data-play-btn].active .default-icon {
+  display: none;
+}
+
+[data-play-btn].active .active-icon {
+  display: block;
+}
+
+
+/* =========================================================
+   CARD TEXT
+   ========================================================= */
+
+.music-card-info {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.music-card-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.music-card h3 {
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 1.4rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  margin-bottom: 4px;
+}
+
+.music-card p {
+  overflow: hidden;
+
+  color: var(--muted);
+
+  font-size: 1.2rem;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   FAVORITES
+   ========================================================= */
+
+.favorite-btn {
+  flex-shrink: 0;
+}
+
+.favorite-btn.active {
+  color: var(--green);
+}
+
+
+/* =========================================================
+   NOW PLAYING
+   ========================================================= */
+
+.now-playing {
+  grid-column: 3;
+  grid-row: 1;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: 24px;
+
+  background: #121212;
+
+  border-left:
+    1px solid var(--border);
+
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #444 transparent;
+}
+
+.now-playing::-webkit-scrollbar {
+  width: 7px;
+}
+
+.now-playing::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.now-playing::-webkit-scrollbar-thumb {
+  background: #3f3f3f;
+  border-radius: 999px;
+}
+
+.now-playing::-webkit-scrollbar-thumb:hover {
+  background: #5b5b5b;
+}
+
+
+/* =========================================================
+   NOW PLAYING HEADER
+   ========================================================= */
+
+.now-playing-header {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 22px;
+}
+
+.now-playing-header h2 {
+  color: var(--white);
+
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+
+.now-playing-header .btn-icon {
+  width: 34px;
+  height: 34px;
+}
+
+
+/* =========================================================
+   NOW PLAYING VINYL
+   ========================================================= */
+
+.now-playing-art {
+  position: relative;
+
+  width: 100%;
+  height: auto;
+
+  aspect-ratio: 1 / 1;
+
+  margin-bottom: 20px;
+
+  padding: 0;
+
+  display: block;
+
+  overflow: hidden;
+
+  background: #111;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.5);
+
+  will-change: transform;
+}
+
+.now-playing-art > img {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  max-width: none;
+  max-height: none;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   NOW PLAYING CENTER
+   ========================================================= */
+
+.now-playing-art::after {
+  content: "";
+
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  width: 13%;
+  height: 13%;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.3);
+
+  border:
+    4px solid
+    rgba(255, 255, 255, 0.15);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(0, 0, 0, 0.25);
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+.now-playing.is-playing .now-playing-art {
+  animation:
+    vinyl-spin
+    4s
+    linear
+    infinite;
+}
+
+
+/* =========================================================
+   NOW PLAYING INFO
+   ========================================================= */
+
+.now-playing-info {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.now-playing-info > div {
+  min-width: 0;
+}
+
+.now-playing-info h2 {
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 1.7rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  margin-bottom: 4px;
+}
+
+.now-playing-info p {
+  overflow: hidden;
+
+  color: var(--muted);
+
+  font-size: 1.25rem;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn-icon {
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  color: var(--muted);
+
+  transition:
+    color var(--transition),
+    background var(--transition),
+    transform var(--transition);
+}
+
+.btn-icon:hover {
+  color: var(--white);
+  background: var(--bg-hover);
+
+  transform: scale(1.05);
+}
+
+.btn-icon .material-symbols-rounded {
+  font-size: 23px;
+}
+
+
+/* =========================================================
+   BOTTOM PLAYER
+   ========================================================= */
+
+.bottom-player {
+  grid-column: 1 / -1;
+  grid-row: 2;
+
+  position: relative;
+
+  min-width: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 1fr)
+    minmax(350px, 2fr)
+    minmax(180px, 1fr);
+
+  align-items: center;
+
+  gap: 25px;
+
+  padding: 10px 16px;
+
+  background: #181818;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  z-index: 8000;
+}
+
+
+/* =========================================================
+   CURRENT SONG
+   ========================================================= */
+
+.current-song {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+}
+
+.current-song > img {
+  width: 56px;
+  height: 56px;
+
+  min-width: 56px;
+  min-height: 56px;
+
+  max-width: 56px;
+  max-height: 56px;
+
+  flex: 0 0 56px;
+
+  display: block;
+
+  aspect-ratio: 1 / 1;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 3px;
+}
+
+.current-song-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.current-song-info strong {
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.current-song-info span {
+  overflow: hidden;
+
+  color: var(--muted);
+
+  font-size: 1.1rem;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PLAYER CONTROLS
+   ========================================================= */
+
+.player-controls {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 10px;
+}
+
+.control-buttons .btn-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.control-buttons .btn-icon .material-symbols-rounded {
+  font-size: 21px;
+}
+
+
+/* =========================================================
+   SHUFFLE / REPEAT
+   ========================================================= */
+
+.control-buttons .toggle.active {
+  color: var(--green);
+}
+
+
+/* =========================================================
+   MAIN PLAY
+   ========================================================= */
+
+.play-button {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #000;
+  background: var(--white);
+
+  transition:
+    transform var(--transition),
+    background var(--transition);
+}
+
+.play-button:hover {
+  background: var(--white);
+  transform: scale(1.08);
+}
+
+.play-button .material-symbols-rounded {
+  font-size: 24px;
+}
+
+
+/* =========================================================
+   PROGRESS / VOLUME RANGE
+   SINGLE CLEAN TRACK
+   ========================================================= */
+
+.range-wrapper {
+  position: relative;
+
+  width: 100%;
+  height: 14px;
+
+  display: flex;
+  align-items: center;
+}
+
+.range {
+  position: relative;
+
+  z-index: 3;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+  height: 14px;
+
+  margin: 0;
+  padding: 0;
+
+  cursor: pointer;
+
+  background: transparent;
+}
+
+/* =========================================================
+   BASE TRACK
+   ========================================================= */
+
+.range-wrapper::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 100%;
+  height: 4px;
+
+  transform: translateY(-50%);
+
+  border-radius: 999px;
+
+  background: #5a5a5a;
+
+  z-index: 1;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   CHROME / EDGE / SAFARI TRACK
+   TRANSPARENT SO IT DOES NOT DOUBLE
+   ========================================================= */
+
+.range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: transparent;
+}
+
+
+/* =========================================================
+   FIREFOX TRACK
+   ========================================================= */
+
+.range::-moz-range-track {
+  width: 100%;
+  height: 4px;
+
+  border: 0;
+
+  border-radius: 999px;
+
+  background: transparent;
+}
+
+
+/* =========================================================
+   PROGRESS FILL
+   ========================================================= */
+
+.range-fill {
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 0;
+  height: 4px;
+
+  transform: translateY(-50%);
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  border-radius: 999px;
+
+  background: var(--white);
+}
+
+
+/* =========================================================
+   CHROME / EDGE / SAFARI THUMB
+   ========================================================= */
+
+.range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 12px;
+  height: 12px;
+
+  margin-top: -4px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: var(--white);
+
+  opacity: 0;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+
+/* =========================================================
+   FIREFOX THUMB
+   ========================================================= */
+
+.range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: var(--white);
+
+  opacity: 0;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+
+/* =========================================================
+   RANGE HOVER
+   ========================================================= */
+
+.range-wrapper:hover .range::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+.range-wrapper:hover .range::-moz-range-thumb {
+  opacity: 1;
+}
+
+.range-wrapper:hover .range-fill {
+  background: var(--green);
+}
+
+
+/* =========================================================
+   PROGRESS CONTAINER
+   ========================================================= */
+
+.progress-container {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    35px
+    minmax(0, 1fr)
+    35px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: var(--muted);
+
+  font-size: 1rem;
+}
+
+.progress-container > span:last-child {
+  text-align: right;
+}
+
+
+/* =========================================================
+   VOLUME
+   ========================================================= */
+
+.player-volume {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 7px;
+}
+
+.player-volume .btn-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.player-volume .range-wrapper {
+  width: 100px;
+}
+
+
+/* =========================================================
+   LIBRARY PANEL
+   ========================================================= */
+
+.playlist {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  width: min(460px, 100vw);
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #181818;
+
+  border-left:
+    1px solid rgba(255, 255, 255, 0.08);
+
+  z-index: 500;
+
+  transform:
+    translateX(100%);
+
+  transition:
+    transform 250ms ease;
+
+  overflow: hidden;
+}
+
+.playlist.active {
+  transform:
+    translateX(0);
+}
+
+
+/* =========================================================
+   LIBRARY HEADER
+   ========================================================= */
+
+.playlist-header {
+  flex: 0 0 auto;
+
+  padding: 20px;
+
+  background: #181818;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
+.playlist-title-row {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 16px;
+}
+
+.playlist-title-row h2 {
+  min-width: 0;
+
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 2rem;
+  font-weight: 800;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.playlist-search {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  padding: 10px 12px;
+
+  margin-bottom: 14px;
+
+  background: #242424;
+
+  border-radius: 7px;
+
+  transition:
+    background var(--transition);
+}
+
+.playlist-search:focus-within {
+  background: #2a2a2a;
+}
+
+.playlist-search .material-symbols-rounded {
+  color: var(--muted);
+
+  font-size: 22px;
+
+  flex-shrink: 0;
+}
+
+.playlist-search input {
+  width: 100%;
+
+  color: var(--white);
+
+  background: transparent;
+
+  font-size: 1.3rem;
+}
+
+.playlist-search input::placeholder {
+  color: #888;
+}
+
+
+/* =========================================================
+   FILTER ROWS
+   ========================================================= */
+
+.playlist-filter {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-bottom: 4px;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    #444
+    transparent;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.playlist-filter + .playlist-filter {
+  margin-top: 8px;
+}
+
+.playlist-filter::-webkit-scrollbar {
+  height: 4px;
+}
+
+.playlist-filter::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.playlist-filter::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 999px;
+}
+
+.playlist-filter::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+   ========================================================= */
+
+.filter-btn {
+  flex: 0 0 auto;
+
+  padding: 7px 12px;
+
+  color: var(--muted);
+  background: #242424;
+
+  border-radius: 20px;
+
+  font-size: 1.15rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color var(--transition),
+    background var(--transition);
+}
+
+.filter-btn:hover {
+  color: var(--white);
+  background: #303030;
+}
+
+.filter-btn.active {
+  color: #000;
+  background: var(--green);
+}
+
+.filter-btn.active:hover {
+  color: #000;
+  background: var(--green-hover);
+}
+
+
+/* =========================================================
+   FULL SONG LIST
+   ========================================================= */
+
+.music-list {
+  flex: 1 1 auto;
+
+  min-height: 0;
+
+  width: 100%;
+
+  margin: 0;
+
+  padding:
+    8px
+    10px
+    30px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color:
+    #4c4c4c
+    transparent;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================================
+   LIBRARY SCROLLBAR
+   ========================================================= */
+
+.music-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.music-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.music-list::-webkit-scrollbar-thumb {
+  background: #4b4b4b;
+
+  border-radius: 999px;
+
+  border: 1px solid transparent;
+
+  background-clip: padding-box;
+}
+
+.music-list::-webkit-scrollbar-thumb:hover {
+  background: #777;
+
+  border: 1px solid transparent;
+
+  background-clip: padding-box;
+}
+
+
+/* =========================================================
+   SONG ITEM
+   ========================================================= */
+
+.music-list > li {
+  width: 100%;
+}
+
+.music-item {
+  width: 100%;
+
+  min-height: 64px;
+
+  padding: 8px 10px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: var(--white);
+
+  background: transparent;
+
+  border-radius: 7px;
+
+  text-align: left;
+
+  transition:
+    background var(--transition),
+    transform var(--transition);
+}
+
+.music-item:hover {
+  background: #282828;
+}
+
+.music-item:active {
+  transform: scale(0.995);
+}
+
+.music-item.playing {
+  background: #292929;
+}
+
+
+/* =========================================================
+   SONG IMAGE
+   ========================================================= */
+
+.music-item > img {
+  width: 48px;
+  height: 48px;
+
+  min-width: 48px;
+  min-height: 48px;
+
+  max-width: 48px;
+  max-height: 48px;
+
+  flex: 0 0 48px;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 5px;
+}
+
+
+/* =========================================================
+   SONG INFO
+   ========================================================= */
+
+.music-item .item-info {
+  min-width: 0;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.music-item .item-title {
+  overflow: hidden;
+
+  color: var(--white);
+
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.music-item .item-artist {
+  overflow: hidden;
+
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: 1.1rem;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   SONG PLAY ICON
+   ========================================================= */
+
+.music-item .item-icon {
+  width: 32px;
+  height: 32px;
+
+  min-width: 32px;
+
+  display: grid;
+  place-items: center;
+
+  color: var(--muted);
+}
+
+.music-item.playing .item-icon {
+  color: var(--green);
+}
+
+.music-item .item-icon .material-symbols-rounded {
+  font-size: 21px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-playlist {
+  width: 100%;
+
+  min-height: 200px;
+
+  display: flex !important;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  color: #888;
+
+  text-align: center;
+}
+
+.empty-playlist .material-symbols-rounded {
+  font-size: 40px;
+}
+
+.empty-playlist p {
+  font-size: 1.3rem;
+}
+
+
+/* =========================================================
+   OVERLAY
+   ========================================================= */
+
+.overlay {
+  position: fixed;
+
+  inset: 0;
+
+  display: block;
+
+  background:
+    rgba(0, 0, 0, 0.68);
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  z-index: 9000;
+
+  transition:
+    opacity 250ms ease,
+    visibility 250ms ease;
+}
+
+.overlay.active {
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   BODY LOCK
+   ========================================================= */
+
+body.modalActive,
+body.sidebar-open {
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1200px) {
+  :root {
+    --sidebar-width: 210px;
+    --right-panel-width: 280px;
+  }
+
+  .home {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .quick-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+  .bottom-player {
+    grid-template-columns:
+      minmax(180px, 1fr)
+      minmax(300px, 2fr)
+      minmax(150px, 1fr);
+
+    gap: 15px;
+  }
+}
+
+
+/* =========================================================
+   SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+  :root {
+    --right-panel-width: 240px;
+  }
+
+  .sidebar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .sidebar-logo {
+    font-size: 1.6rem;
+  }
+
+  .now-playing {
+    padding: 18px;
+  }
+
+  .now-playing-info h2 {
+    font-size: 1.45rem;
+  }
+
+  .music-grid {
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(140px, 1fr)
+      );
+
+    gap: 14px;
+  }
+
+  .bottom-player {
+    grid-template-columns:
+      1fr
+      1.5fr
+      auto;
+  }
+
+  .player-volume .range-wrapper {
+    width: 70px;
+  }
+}
+
+
+/* =========================================================
+   TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+  body {
+    overflow: auto;
+  }
+
+  /* =======================================================
+     APP
+     ======================================================= */
+
+  .app {
+    width: 100%;
+    height: auto;
+
+    min-height: 100vh;
+
+    display: block;
+
+    padding-bottom:
+      var(--player-height);
+
+    overflow: visible;
+
+    transition: none;
+  }
+
+  .app.sidebar-collapsed {
+    display: block;
+  }
+
+
+  /* =======================================================
+     SIDEBAR
+     ======================================================= */
+
+  .sidebar {
+    position: fixed !important;
+
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 260px !important;
+
+    height: 100vh;
+
+    padding:
+      24px
+      12px !important;
+
+    background: #000;
+
+    z-index: 10000;
+
+    transform:
+      translateX(-100%) !important;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    transition:
+      transform 260ms ease,
+      opacity 220ms ease,
+      visibility 220ms ease !important;
+  }
+
+  .sidebar.active {
+    transform:
+      translateX(0) !important;
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+  }
+
+
+  /* =======================================================
+     HOME
+     ======================================================= */
+
+  .home {
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding:
+      20px
+      20px
+      110px;
+  }
+
+
+  /* =======================================================
+     HAMBURGER
+     ======================================================= */
+
+  .mobile-menu {
+    display: grid !important;
+
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    flex: 0 0 42px;
+
+    margin-right: 10px;
+
+    color: var(--white);
+
+    background: #242424;
+
+    z-index: 10001;
+  }
+
+  .mobile-menu:hover {
+    background: #303030;
+  }
+
+
+  /* =======================================================
+     NOW PLAYING
+     ======================================================= */
+
+  .now-playing {
+    display: none;
+  }
+
+
+  /* =======================================================
+     BOTTOM PLAYER
+     ======================================================= */
+
+  .bottom-player {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: var(--player-height);
+
+    display: grid;
+
+    grid-template-columns:
+      minmax(160px, 1fr)
+      auto;
+
+    gap: 12px;
+
+    padding:
+      8px
+      14px;
+
+    z-index: 8000;
+  }
+
+  .player-controls {
+    display: none;
+  }
+
+  .player-volume {
+    display: none;
+  }
+
+  .current-song {
+    min-width: 0;
+  }
+
+  .current-song > img {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+    min-height: 52px;
+
+    max-width: 52px;
+    max-height: 52px;
+
+    flex: 0 0 52px;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+  }
+
+  .current-song .btn-icon {
+    display: none;
+  }
+
+
+  /* =======================================================
+     QUICK GRID
+     ======================================================= */
+
+  .quick-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+
+
+  /* =======================================================
+     LIBRARY
+     ======================================================= */
+
+  .playlist {
+    width:
+      min(
+        420px,
+        100vw
+      );
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .home {
+    padding:
+      16px
+      14px
+      105px;
+  }
+
+  .home-header {
+    min-height: 65px;
+    margin-bottom: 18px;
+  }
+
+  .home-header h1 {
+    font-size: 2.7rem;
+  }
+
+  .greeting {
+    font-size: 1.15rem;
+  }
+
+
+  /* =======================================================
+     QUICK PLAYLISTS
+     ======================================================= */
+
+  .quick-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap: 8px;
+  }
+
+  .quick-card {
+    height: 58px;
+  }
+
+  .quick-card > .material-symbols-rounded {
+    width: 58px;
+    height: 58px;
+
+    min-width: 58px;
+    min-height: 58px;
+
+    flex: 0 0 58px;
+
+    font-size: 24px;
+  }
+
+  .quick-card > span:nth-child(2) {
+    padding-right: 8px;
+
+    font-size: 1.15rem;
+  }
+
+  .quick-play {
+    display: none;
+  }
+
+
+  /* =======================================================
+     SECTIONS
+     ======================================================= */
+
+  .music-section {
+    margin-bottom: 32px;
+  }
+
+  .section-header h2 {
+    font-size: 1.7rem;
+  }
+
+
+  /* =======================================================
+     MUSIC GRID
+     ======================================================= */
+
+  .music-grid {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+
+    gap: 10px;
+  }
+
+  .music-card {
+    width: 100%;
+    padding: 10px;
+  }
+
+
+  /* =======================================================
+     VINYL
+     ======================================================= */
+
+  .music-card-image {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    margin-bottom: 10px;
+
+    border-radius: 50%;
+  }
+
+  .music-card-image > img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+  }
+
+
+  /* =======================================================
+     TEXT
+     ======================================================= */
+
+  .music-card h3 {
+    font-size: 1.25rem;
+  }
+
+  .music-card p {
+    font-size: 1.1rem;
+  }
+
+
+  /* =======================================================
+     CARD PLAY
+     ======================================================= */
+
+  .card-play {
+    width: 40px;
+    height: 40px;
+
+    opacity: 1;
+
+    transform: none;
+  }
+
+  .card-play .material-symbols-rounded {
+    font-size: 22px;
+  }
+
+
+  /* =======================================================
+     PLAYER
+     ======================================================= */
+
+  .bottom-player {
+    height: 70px;
+
+    padding:
+      7px
+      10px;
+  }
+
+  .current-song > img {
+    width: 48px;
+    height: 48px;
+
+    min-width: 48px;
+    min-height: 48px;
+
+    max-width: 48px;
+    max-height: 48px;
+
+    flex: 0 0 48px;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+  }
+
+  .current-song-info strong {
+    font-size: 1.15rem;
+  }
+
+  .current-song-info span {
+    font-size: 1rem;
+  }
+
+
+  /* =======================================================
+     LIBRARY
+     ======================================================= */
+
+  .playlist-header {
+    padding: 16px;
+  }
+
+  .playlist-title-row h2 {
+    font-size: 1.8rem;
+  }
+
+  .music-list {
+    padding:
+      8px
+      8px
+      24px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 380px) {
+  .sidebar {
+    width: 100vw !important;
+  }
+
+  .mobile-menu {
+    width: 40px;
+    height: 40px;
+
+    min-width: 40px;
+
+    flex-basis: 40px;
+  }
+
+  .quick-card {
+    height: 52px;
+  }
+
+  .quick-card > .material-symbols-rounded {
+    width: 52px;
+    height: 52px;
+
+    min-width: 52px;
+    min-height: 52px;
+
+    flex: 0 0 52px;
+
+    font-size: 22px;
+  }
+
+  .quick-card > span:nth-child(2) {
+    font-size: 1.05rem;
+
+    padding-left: 0;
+    padding-right: 7px;
+  }
+
+  .home-header h1 {
+    font-size: 2.4rem;
+  }
+
+  .music-grid {
+    gap: 8px;
+  }
+
+  .music-card {
+    padding: 8px;
+  }
+
+  .music-card-image {
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 50%;
+  }
+
+  .music-card-image > img {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    max-width: none;
+    max-height: none;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+  }
+
+  .playlist {
+    width: 100vw;
+  }
+
+  .music-item > img {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+    min-height: 44px;
+
+    max-width: 44px;
+    max-height: 44px;
+
+    flex-basis: 44px;
+  }
+
+  .music-item {
+    min-height: 60px;
+
+    padding:
+      7px
+      8px;
+  }
+
+  .music-item .item-title {
+    font-size: 1.2rem;
+  }
+
+  .music-item .item-artist {
+    font-size: 1rem;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+
+    transition-duration:
+      0.01ms !important;
+  }
+
+  .music-card.is-playing .music-card-image,
+  .now-playing.is-playing .now-playing-art {
+    animation: none !important;
+  }
+}
+
+
+/* =========================================================
+   DESKTOP ONLY
+   ========================================================= */
+
+@media (min-width: 801px) {
+  .sidebar {
+    position: relative;
+
+    transform: none !important;
+  }
+
+  .overlay {
+    display: none !important;
+  }
+
+  /* Hamburger is intentionally visible
+     on desktop because it controls
+     sidebar collapse. */
+
+  .mobile-menu {
+    display: grid !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE OVERLAY
+   ========================================================= */
+
+@media (max-width: 800px) {
+  .overlay {
+    display: block !important;
+  }
+}
