@@ -1564,6 +1564,75 @@ const musicData = [
     artist: "3 Stars and a Sun",
     musicPath: "./assets/music/[15] 3 stars and a sun.mp3",
   },
+    {
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "Cintamu Sepahit Topi Miring",
+  album: "Single",
+  year: 2025,
+  artist: "Jogja Hip Hop Foundation",
+  musicPath: "./assets/music/Cintamu Sepahit Topi Miring - Jogja Hip Hop Foundation _ Sengkuni lede lede _ Lirik Lagu.mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "Song To My Friend",
+  album: "Single",
+  year: 2025,
+  artist: "Defamilita",
+  musicPath: "./assets/music/Defamilita - Song To My Friend Remastered (Official Music Video).mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "LASIK",
+  album: "Single",
+  year: 2025,
+  artist: "HEY JUNE!",
+  musicPath: "./assets/music/HEY JUNE! - LASIK (Narrative Music Video).mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "Can't Fight This Feeling",
+  album: "Single",
+  year: 2025,
+  artist: "REO Speedwagon",
+  musicPath: "./assets/music/REO Speedwagon - Can't Fight This Feeling (Official HD Video).mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "In My Dreams",
+  album: "Single",
+  year: 2025,
+  artist: "REO Speedwagon",
+  musicPath: "./assets/music/REO Speedwagon - In My Dreams (Lyrics).mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "Keep On Loving You",
+  album: "Single",
+  year: 2025,
+  artist: "REO Speedwagon",
+  musicPath: "./assets/music/REO Speedwagon - Keep On Loving You (Lyrics).mp3",
+},
+
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "WE DON'T CARE",
+  album: "Single",
+  year: 2025,
+  artist: "XMAN NDUGAL",
+  musicPath: "./assets/music/XMAN NDUGAL - WE DON'T CARE (Official Lyric Video).mp3",
+},
 ];
 
 
