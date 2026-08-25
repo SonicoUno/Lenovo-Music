@@ -595,15 +595,15 @@ const musicData = [
     musicPath: "./assets/music/HeatWave-Lime.mp3",
   },
 
-  {
-    backgroundImage: "./assets/images/poster-1.jpg",
-    posterUrl: "./assets/images/poster-1.jpg",
-    title: "I Miss You",
-    album: "Single",
-    year: 2025,
-    artist: "blink-182",
-    musicPath: "./assets/music/I Miss You - blink-182 _ Mayonnaise x I Belong To The Zoo #TBT.mp3",
-  },
+   {
+     backgroundImage: "./assets/images/poster-1.jpg",
+     posterUrl: "./assets/images/poster-1.jpg",
+     title: "I Miss You",
+     album: "Single",
+     year: 2025,
+     artist: "blink-182",
+     musicPath: "./assets/music/I Miss You - blink-182 _ Mayonnaise x I Belong To The Zoo.mp3",
+   },
 
   {
     backgroundImage: "./assets/images/poster-1.jpg",
