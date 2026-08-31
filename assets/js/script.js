@@ -1633,6 +1633,15 @@ const musicData = [
   artist: "XMAN NDUGAL",
   musicPath: "./assets/music/XMAN NDUGAL - WE DON'T CARE (Official Lyric Video).mp3",
 },
+{
+  backgroundImage: "./assets/images/poster-1.jpg",
+  posterUrl: "./assets/images/poster-1.jpg",
+  title: "Por Mi Mexico Remix 🇲🇽",
+  album: "Single",
+  year: 2025,
+  artist: "Lefty SM, Santa Fe Klan, Dharius, C-Kan, MC Davo & Neto Peña",
+  musicPath: "./assets/music/Por Mi Mexico Remix 🇲🇽 - Lefty SM, Santa Fe Klan, Dharius, C-Kan, MC Davo & Neto Peña.mp3",
+},
 ];
 
 
